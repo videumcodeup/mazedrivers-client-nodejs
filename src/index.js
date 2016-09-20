@@ -20,6 +20,11 @@ conn.on('connect', () => {
   }
 })
 
+conn.on('close', () => {
+  console.log('Disconnected')
+  process.exit()
+})
+
 const state = {
   playing: false
 }
