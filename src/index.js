@@ -25,7 +25,7 @@ const state = {
 }
 
 conn.on('text', data => {
-  console.log(data)
+  console.log(data.replace(/maze":\[\[.*\]\]/, 'maze":[["..."]]'))
   const action = JSON.parse(data)
 
   switch (action.type) {
