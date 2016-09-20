@@ -1,4 +1,5 @@
 import ws from 'nodejs-websocket'
+import keypress from 'keypress'
 
 const nickname = process.env.NICKNAME || 'Demo'
 
@@ -34,3 +35,43 @@ conn.on('text', data => {
       break
   }
 })
+
+const getDirection = key => {
+  console.log(key)
+  switch (key) {
+    case 'left':
+      return 'WEST'
+    case 'right':
+      return 'EAST'
+    case 'up':
+      return 'NORTH'
+    case 'down':
+      return 'SOUTH'
+    default:
+      throw new Error(`Unknown key ${key}`)
+  }
+}
+
+const keypressCallback = (key) => {
+  const direction = getDirection(key.name)
+  if (direction) {
+    sendAction('DRIVE_REQUEST', direction)
+  }
+}
+
+// make `process.stdin` begin emitting "keypress" events
+keypress(process.stdin)
+
+// listen for the "keypress" event
+process.stdin.on('keypress', function (ch, key) {
+  if (key && key.ctrl && key.name === 'c') {
+    process.exit()
+  }
+  if (state.playing) {
+    keypressCallback(key)
+  }
+  console.log('got "keypress"', key)
+})
+
+process.stdin.setRawMode(true)
+process.stdin.resume()
