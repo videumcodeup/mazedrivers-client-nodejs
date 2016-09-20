@@ -11,7 +11,7 @@ const conn = ws.connect('ws://localhost:8001', {}, () => {
     conn.sendText(JSON.stringify({ type, payload }))
 
   if (token) {
-    sendAction('RESUME_REQUEST', { token })
+    sendAction('REJOIN_REQUEST', { token })
   } else {
     sendAction('JOIN_REQUEST', { nickname })
   }
