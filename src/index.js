@@ -19,6 +19,18 @@ conn.on('connect', () => {
   }
 })
 
+const state = {
+  playing: false
+}
+
 conn.on('text', data => {
   console.log(data)
+  const action = JSON.parse(data)
+
+  switch (action.type) {
+    case 'JOIN_SUCCESS':
+    case 'RESUME_SUCCESS':
+      state.playing = true
+      break
+  }
 })
