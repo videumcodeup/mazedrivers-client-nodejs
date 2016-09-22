@@ -35,7 +35,7 @@ conn.on('text', data => {
 
   switch (action.type) {
     case 'JOIN_SUCCESS':
-    case 'RESUME_SUCCESS':
+    case 'REJOIN_SUCCESS':
       state.playing = true
       break
   }
