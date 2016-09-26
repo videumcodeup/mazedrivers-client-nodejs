@@ -52,8 +52,6 @@ const getDirection = key => {
       return 'NORTH'
     case 'down':
       return 'SOUTH'
-    default:
-      throw new Error(`Unknown key ${key}`)
   }
 }
 
@@ -61,6 +59,8 @@ const keypressCallback = (key) => {
   const direction = getDirection(key.name)
   if (direction) {
     sendAction('DRIVE_REQUEST', direction)
+  } else if (key.name === 'space') {
+    sendAction('BREAK_REQUEST')
   }
 }
 
