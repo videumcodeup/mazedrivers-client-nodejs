@@ -1,11 +1,13 @@
 import ws from 'nodejs-websocket'
 import keypress from 'keypress'
 
+const host = process.env.HOST || 'localhost'
+const port = process.env.PORT || 8001
 const nickname = process.env.NICKNAME || 'Demo'
 
 const token = process.argv[2] ? process.argv[2].trim() : undefined
 
-const conn = ws.connect('ws://localhost:8001', {})
+const conn = ws.connect(`ws://${host}:${port}`, {})
 
 const sendAction = (type, payload) =>
   conn.sendText(JSON.stringify({ type, payload }))
